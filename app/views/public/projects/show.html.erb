@@ -1,8 +1,57 @@
-<h1>Public::Projects#show</h1>
-<p>Find me in app/views/public/projects/show.html.erb</p>
+<div class="row">
+  <div class= "justify-content-start">
+    <div>
+      <% if @project.project_image.attached? %>
+        <%= image_tag @project.project_image, size: "100x100" %>
+      <% else %>
 
-<%= @project.inspect %>
+      <% end %>
+      <%= "プロジェクト名" %>
+      <%= @project.title %>
+      <%= "内容" %>
+      <%= @project.description %>
+      <%= link_to "edit", edit_project_path(@project) %><br>
+      <% @project.tasks.each do |task| %>
+        <% if task.task_image.attached? %>
+          <%= image_tag task.task_image, size: "100x100" %>
+        <% else %>
 
-<%= link_to "edit", edit_project_path(@project) %>
+        <% end %>
+        <%= "タスク名" %>
+        <%= task.title %>
+        <%= "内容" %>
+        <%= task.description %>
+        <%= link_to "edit", edit_project_task_path(task.project, task) %><br>
+      <% end %>
+    </div>
+  </div>
+</div>
 
-<%= link_to "destroy", project_path(@project), method: :delete, data: { confirm: "削除しますか？" } %>
+
+
+
+<div class="row">
+  <div class="col-sm-6 offset-sm-3 col-md-4 offset-md-4">
+    <h1>新規タスク作成</h1>
+    <%= form_with model: [@project, @task] do |f| %>
+      <div class="mb-2">
+        <%= f.label :title, "タスク名" %>
+        <%= f.text_field :title, class: "form-control" %>
+      </div>
+      <div class="mb-2">
+        <%= f.label :description, "内容" %>
+        <%= f.text_area :description, rows: 5, class: "form-control" %>
+      </div>
+
+      <div class="mb-2">
+        <%= f.label :task_image, "画像設定" %>
+        <%= f.file_field :task_image, accept: "image/*" %>
+      </div>
+      <div class="my-4">
+        <%= f.submit "作成" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<%= link_to "back", root_path %>

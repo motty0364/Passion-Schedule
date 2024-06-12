@@ -2,6 +2,7 @@ class Public::ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy, :image_destroy]
 
   def show
+    @task = Task.new
   end
 
   def new
@@ -34,12 +35,12 @@ class Public::ProjectsController < ApplicationController
 
   def destroy
     @project.destroy
-    flash[:notice] = "success"
+    flash[:notice] = "project destroyed"
     redirect_to root_path
   end
-
+#画像単体で削除更新される仕様を全編集完了時更新されるようにしたい
   def image_destroy
-    @project.image.purge
+    @project.project_image.purge
     flash[:notice] = "image destroyed"
     redirect_to edit_project_path
   end
@@ -51,6 +52,6 @@ class Public::ProjectsController < ApplicationController
   end
 
   def project_params
-    params.require(:project).permit(:title, :description, :image)
+    params.require(:project).permit(:title, :description, :project_image)
   end
 end

@@ -21,9 +21,9 @@ class Public::HomesController < ApplicationController
       render :edit
     end
   end
-
+#画像単体で削除更新される仕様を全編集完了時更新されるように
   def destroy
-    @user.image.purge
+    @user.profile_image.purge
     flash[:notice] = "image destroyed"
     redirect_to edit_home_path
   end
@@ -35,7 +35,7 @@ class Public::HomesController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :comment, :image)
+    params.require(:user).permit(:name, :comment, :profile_image)
   end
 
 end

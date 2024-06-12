@@ -1,0 +1,4 @@
+<h1>Public::Tasks#edit</h1>
+<p>Find me in app/views/public/tasks/edit.html.erb</p>
+<%= link_to "back", project_path(@task.project) %>
+<%= link_to "destroy", project_task_path(@task.project, @task), method: :delete, data: { confirm: "削除しますか？" } %>

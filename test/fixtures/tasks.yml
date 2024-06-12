@@ -1,0 +1,25 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  project: one
+  title: MyString
+  description: MyText
+  start_time: 2024-06-11 15:03:16
+  end_time: 2024-06-11 15:03:16
+  progress: MyString
+  status: 1
+  x: MyString
+  'y': MyString
+
+two:
+  user: two
+  project: two
+  title: MyString
+  description: MyText
+  start_time: 2024-06-11 15:03:16
+  end_time: 2024-06-11 15:03:16
+  progress: MyString
+  status: 1
+  x: MyString
+  'y': MyString
