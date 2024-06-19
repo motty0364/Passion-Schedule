@@ -1,6 +1,15 @@
-<div class="row">
-  <div class="col-sm-6 offset-sm-3 col-md-4 offset-md-4">
-    <h1><%= title %></h1>
+    <div class="row d-flex">
+      <div class="col justify-content-start">
+        <h1><%= title %></h1>
+      </div>
+      <% if action_name == "edit" %>
+        <div class="col justify-content-end">
+          <%= link_to "プロジェクト削除", project_path(project), method: :delete, "data-confirm" => "プロジェクトを削除しますか？", class: "btn btn-danger" %>
+        </div>
+      <% else %>
+      
+      <% end %>
+    </div>
     <%= form_with model: project do |f| %>
       <div class="mb-2">
         <%= f.label :title, "プロジェクト名" %>
@@ -15,7 +24,7 @@
         <%= f.label :project_image, "画像設定" %><br>
         <% if project.project_image.attached? %>
           <%= image_tag project.project_image, size: "100x100" %>
-          <%= link_to "画像削除", image_destroy_path(project), method: :delete, "data-confirm" => "画像を削除しますか？", class: "btn btn-danger" %>
+          <%= link_to "画像削除", image_destroy_path(project), method: :delete, "data-confirm" => "画像を削除しますか？", class: "btn btn-danger" %><br>
         <% else %>
 
         <% end %>
@@ -26,9 +35,8 @@
       </div>
     <% end %>
     <% if action_name == "new" %>
-      <%= link_to "back", root_path %>
+      <%= link_to "戻る", root_path %>
     <% else %>
-      
+      <%= link_to "戻る", project_path(project) %>
     <% end %>
   </div>
-</div>

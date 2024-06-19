@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_06_11_150316) do
+ActiveRecord::Schema.define(version: 2024_06_12_014718) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -49,6 +49,16 @@ ActiveRecord::Schema.define(version: 2024_06_11_150316) do
     t.index ["user_id"], name: "index_projects_on_user_id"
   end
 
+  create_table "task_relationships", force: :cascade do |t|
+    t.integer "parent_task_id", null: false
+    t.integer "child_task_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["child_task_id"], name: "index_task_relationships_on_child_task_id"
+    t.index ["parent_task_id", "child_task_id"], name: "index_task_relationships_on_parent_task_id_and_child_task_id", unique: true
+    t.index ["parent_task_id"], name: "index_task_relationships_on_parent_task_id"
+  end
+
   create_table "tasks", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "project_id", null: false
@@ -85,6 +95,8 @@ ActiveRecord::Schema.define(version: 2024_06_11_150316) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "projects", "users"
+  add_foreign_key "task_relationships", "tasks", column: "child_task_id"
+  add_foreign_key "task_relationships", "tasks", column: "parent_task_id"
   add_foreign_key "tasks", "projects"
   add_foreign_key "tasks", "users"
 end

@@ -1,8 +1,16 @@
 class Public::ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy, :image_destroy]
-
+  before_action :correct_user, only: [:show, :edit, :update, :destroy]
+  
   def show
     @task = Task.new
+    count = @project.tasks.where(progress: :complete).count
+    total_count = @project.tasks.count
+    if count.zero?
+      @completion_rate = 0
+    else
+     @completion_rate = (count.to_f / total_count.to_f) * 100
+    end
   end
 
   def new
@@ -48,8 +56,16 @@ class Public::ProjectsController < ApplicationController
   private
 
   def set_project
-    @project = Project.find(params[:id])
+    @project = Project.find_by(id: params[:id])
+    redirect_to root_url if !@project
   end
+  
+  def correct_user
+    if @project&.user != current_user
+      redirect_to root_url
+    end
+  end
+
 
   def project_params
     params.require(:project).permit(:title, :description, :project_image)

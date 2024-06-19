@@ -1,31 +1,52 @@
 <% if current_user %>
-  <div class="row justify-content-end">
-    <div>
-      <% if @user.profile_image.attached? %>
-        <%= image_tag @user.profile_image, size: "100x100" %>
-      <% else %>
-        <%= image_tag 'no_image', size: "100x100" %>
-      <% end %>
-      <%= link_to edit_home_path(@user),method: :get do %>
-        <i class="fa-solid fa-gear"></i>
-      <% end %><br>
-      <%= @user.name %><br>
-      <%= @user.comment %>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="d-flex">
+        <% if @user.profile_image.attached? %>
+          <%= image_tag @user.profile_image, size: "100x100" %>
+        <% else %>
+          <%= image_tag 'no_image.jpg', size: "100x100" %>
+        <% end %>
+        <%= link_to edit_home_path(@user), class: "mt-2", method: :get do %>
+          <i class="fa-solid fa-gear"></i>
+        <% end %><br>
+      </div>
+      <div>
+        <p><%= @user.name %></p>
+        <p><%= @user.comment %></p>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Project Image</th>
+            <th>Project Name</th>
+            <th>Project 概要</th>
+            <th>Project 詳細</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @projects.each do |project| %>
+            <tr>
+              <td>
+                <% if project.project_image.attached? %>
+                  <%= image_tag project.project_image, size: "100x100" %>
+                <% else %>
+                  <h5>No Image</h5>
+                <% end %>
+              </td>
+              <td><%= project.title %></td>
+              <td><%= project.description %></td>
+              <td><%= link_to "show", project_path(project) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
     </div>
   </div>
-  <%= link_to "new_project", new_project_path %>
-  <% @projects.each do |project| %>
-    <div class="row">
-      <% if project.project_image.attached? %>
-        <%= image_tag project.project_image, size: "100x100" %>
-      <% else %>
-
-      <% end %>
-    </div>
-  <%= link_to project.title, project_path(project) %>
-<% end %>
-
 <% else %>
-  <h1>Public::Homes#top</h1>
-  <p>Find me in app/views/public/homes/top.html.erb</p>
+  <h1 class="mt-5">
+    Welcome to Passion Schedule
+  </h1>
 <% end %>

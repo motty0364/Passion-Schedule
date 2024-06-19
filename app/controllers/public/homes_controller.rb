@@ -15,7 +15,7 @@ class Public::HomesController < ApplicationController
   def update
     if @user.update(user_params)
       flash[:notice] = "success"
-      redirect_to edit_home_path
+      redirect_to root_path
     else
       flash.now[:alert] = "failed"
       render :edit

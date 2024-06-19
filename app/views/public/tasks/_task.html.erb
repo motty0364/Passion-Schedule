@@ -1,0 +1,47 @@
+<%= link_to project_task_path(task.project, task), style: "text-decoration:none;color:#999;" do %> 
+  <div class="card">
+    <div class="card-img-top d-flex justify-content-center">
+      <div style="height:300px;width:300px;background-color:#eee;" class="d-flex align-items-center justify-content-center">
+      <% if task.task_image.attached? %>
+        <%= image_tag task.task_image, class: "w-100" %>
+      <% else %>
+        <p>no-image</p>
+      <% end %>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <div class="mb-3">
+        <div class="card-subtitle text-muted">
+          title
+        </div>
+        <div class="card-text">
+          <%= task.title %>
+        </div>
+      </div>
+      <div class="mb-3">
+        <div class="card-subtitle text-muted">
+          description
+        </div>
+        <div class="card-text">
+          <%= simple_format(task.description) %>
+        </div>
+      </div>
+      <div class="mb-3">
+        <div class="card-subtitle text-muted">
+          progress
+        </div>
+        <div class="card-text">
+          <%= task.progress_i18n %>
+        </div>
+      </div>
+      <div class="d-flex justify-content-end">
+        <% if parent_task || child_task %>
+          <%= link_to "リレーションを解除", task_relationships_path(task_id: task.id, parent_task_id: parent_task&.id, child_task_id: child_task&.id), class: "btn btn-danger", method: :delete %>
+        <% else %>
+          <%= link_to "タスクの編集", edit_project_task_path(task.project, task), class: "btn btn-warning mt-2" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

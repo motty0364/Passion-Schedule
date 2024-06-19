@@ -1,0 +1,50 @@
+<h1>タスク詳細</h1>
+
+<div class="row">
+  <div class="col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+    <%= render "public/tasks/task", task: @task, child_task: nil, parent_task: nil %>
+  </div>
+</div>
+
+<h2>親タスク一覧</h2>
+<%= form_with model: @task_relationship do |f| %>
+  <div class="row mb-2">
+    <%= f.hidden_field :child_task_id, value: @task.id %>
+    <div class="col-md-4">
+      <%= f.collection_select :parent_task_id, @no_relation_tasks, :id, :title, { include_blank: "--タスクを選ぶ--" }, { class: "form-control mb-2"} %>
+    </div>
+    <div class="col-md-2">
+      <%= f.submit "親タスクに追加", class: "btn btn-primary btn-block" %>
+    </div>
+  </div>
+<% end %>
+<div class="row">
+  <% @parent_tasks.each do |task| %>
+    <div class="col-lg-4 col-md-6">
+      <%= render 'public/tasks/task', task: task, child_task: @task, parent_task: nil  %>
+    </div>
+  <% end %>
+</div>
+
+<h2>子タスク一覧</h2>
+<%= form_with model: @task_relationship do |f| %>
+  <div class="row mb-2">
+    <%= f.hidden_field :parent_task_id, value: @task.id %>
+    <div class="col-md-4">
+      <%= f.collection_select :child_task_id, @no_relation_tasks, :id, :title, { include_blank: "--タスクを選ぶ--" }, { class: "form-control mb-2"} %>
+    </div>
+    <div class="col-md-2">
+      <%= f.submit "子タスクに追加", class: "btn btn-primary btn-block" %>
+    </div>
+  </div>
+<% end %>
+
+<div class="row">
+  <% @child_tasks.each do |task| %>
+    <div class="col-lg-4 col-md-6">
+      <%= render 'public/tasks/task', task: task, parent_task: @task, child_task: nil %>
+    </div>
+  <% end %>
+</div>
+
+<%= link_to "戻る", project_path(@task.project) %>

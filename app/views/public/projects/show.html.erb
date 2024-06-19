@@ -1,57 +1,81 @@
 <div class="row">
-  <div class= "justify-content-start">
+  <div class="col-md-4">
     <div>
-      <% if @project.project_image.attached? %>
-        <%= image_tag @project.project_image, size: "100x100" %>
-      <% else %>
-
-      <% end %>
-      <%= "プロジェクト名" %>
-      <%= @project.title %>
-      <%= "内容" %>
-      <%= @project.description %>
-      <%= link_to "edit", edit_project_path(@project) %><br>
-      <% @project.tasks.each do |task| %>
-        <% if task.task_image.attached? %>
-          <%= image_tag task.task_image, size: "100x100" %>
-        <% else %>
-
-        <% end %>
-        <%= "タスク名" %>
-        <%= task.title %>
-        <%= "内容" %>
-        <%= task.description %>
-        <%= link_to "edit", edit_project_task_path(task.project, task) %><br>
+      <h1>プロジェクト詳細</h1>
+      <table class="table">
+        <tr>
+          <th>Image</th>
+          <td>
+            <% if @project.project_image.attached? %>
+              <%= image_tag @project.project_image, size: "100x100" %>
+            <% else %>
+              <h5>No Image</h5>
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <th>Name</th>
+          <td><%= @project.title %></td>
+        </tr>
+        <tr>
+          <th>概要</th>
+          <td><%= @project.description %></td>
+        </tr>
+        <tr>
+          <th>完了率</th>
+          <td><%= @completion_rate.round(2) %>%</td>
+        </tr>
+      </table>
+      <%= link_to "Project編集", edit_project_path(@project), class: "btn btn-warning btn-block mb-4" %>
+    </div>
+    <div>
+      <h2>新規タスク作成</h2>
+      <%= form_with model: [@project, @task] do |f| %>
+        <div class="mb-2">
+          <%= f.label :title, "タスク名" %>
+          <%= f.text_field :title, class: "form-control" %>
+        </div>
+        <div class="mb-2">
+          <%= f.label :description, "内容" %>
+          <%= f.text_area :description, rows: 5, class: "form-control" %>
+        </div>
+  
+        <div class="mb-2">
+          <%= f.label :task_image, "画像設定" %>
+          <%= f.file_field :task_image, accept: "image/*" %>
+        </div>
+        <div class="my-4">
+          <%= f.submit "新規タスク作成", class: "btn btn-primary btn-block" %>
+        </div>
       <% end %>
     </div>
   </div>
-</div>
-
-
-
-
-<div class="row">
-  <div class="col-sm-6 offset-sm-3 col-md-4 offset-md-4">
-    <h1>新規タスク作成</h1>
-    <%= form_with model: [@project, @task] do |f| %>
-      <div class="mb-2">
-        <%= f.label :title, "タスク名" %>
-        <%= f.text_field :title, class: "form-control" %>
-      </div>
-      <div class="mb-2">
-        <%= f.label :description, "内容" %>
-        <%= f.text_area :description, rows: 5, class: "form-control" %>
-      </div>
-
-      <div class="mb-2">
-        <%= f.label :task_image, "画像設定" %>
-        <%= f.file_field :task_image, accept: "image/*" %>
-      </div>
-      <div class="my-4">
-        <%= f.submit "作成" %>
-      </div>
-    <% end %>
+  <div class="col-md-8">
+    <h2>タスク一覧</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Task Image</th>
+          <th>Task Name</th>
+          <th>進捗状況</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @project.tasks.each do |task| %>
+          <tr>
+            <td>
+              <% if task.task_image.attached? %>
+                <%= image_tag task.task_image, size: "100x100" %>
+              <% else %>
+                <h5>No Image</h5>
+              <% end %>
+            </td>
+            <td><%= task.title %></td>
+            <td><%= t("enums.task.progress.#{task.progress}") %></td>
+            <td><%= link_to "詳細", project_task_path(task.project, task), class: "btn btn-outline-primary" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
   </div>
 </div>
-
-<%= link_to "back", root_path %>

@@ -1,0 +1,8 @@
+ja:
+  enums:
+    task:
+      progress:
+        incomplete: 未完了
+        to_do: やること
+        complete: 完了
+        standby: 待機
