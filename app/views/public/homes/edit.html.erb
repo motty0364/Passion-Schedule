@@ -20,7 +20,7 @@
   <%= link_to "画像削除", home_path(@user), method: :delete, "data-confirm" => "画像を削除しますか？", class: "btn btn-danger" %><br>
   <%= f.file_field :profile_image, accept: "image/*" %>
 <% else %>
-  <%= image_tag 'no_image', size: "100x100" %>
+  <%= image_tag 'no_image.jpg', size: "100x100" %>
   <%= f.file_field :profile_image, accept: "image/*" %>
 <% end %>
 <h4>コメント</h4>
