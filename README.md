@@ -25,14 +25,18 @@
 ### 実装機能リストURL
 https://docs.google.com/spreadsheets/d/1ZyHnkZDRFLDpsg6D_Pw08Ju9Tr1o4bHrMAGSZfSqPts/edit?usp=sharing
 ## 設計書
-後ほど作成予定
-​
+テーブル定義書
+https://docs.google.com/spreadsheets/d/1vnvgNlL9WRrUmZRF9nh_i7AdsOb43ywL6COeHAYUlm4/edit?gid=1858675554#gid=1858675554
+ER図
+https://drive.google.com/file/d/14cpWB9uN_yO-oOXSKWN0VEktrEcKDNhK/view?usp=sharing
+詳細設計書
+https://docs.google.com/spreadsheets/d/1TonN0SYcYlBWG8uRUwvuoK-wZkwlH7TH/edit?gid=549108681#gid=549108681
+インフラ設計書
+https://docs.google.com/spreadsheets/d/1IJZ2LEBsBKjTUoI1ZlRJLhpMnt1x4im7Hnb-q5XBhjk/edit?gid=0#gid=0
+https://drive.google.com/file/d/1VoX5dgCdZ6crez54k1o1rcWsAig44VGE/view?usp=sharing
 ## 開発環境
 - OS：Linux(CentOS)
 - 言語：HTML,CSS,JavaScript,Ruby,SQL
 - フレームワーク：Ruby on Rails
 - JSライブラリ：jQuery
 - IDE：Cloud9
-
-## 使用素材
-- 外部サービスの画像素材・音声素材を使用した場合は、必ずサービス名とURLを明記してください。
